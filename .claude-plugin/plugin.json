@@ -1,0 +1,20 @@
+{
+  "name": "claude-scout",
+  "version": "1.0.0",
+  "description": "AI-assisted migration intelligence. Scouts any git repo (local or GitHub URL) to explain what the app is, its tech stack, and architecture. First step in an AI migration workflow.",
+  "author": "esasin",
+  "license": "MIT",
+  "skills": [
+    { "path": "skills/scout",       "name": "scout" },
+    { "path": "skills/scout-stack", "name": "scout-stack" },
+    { "path": "skills/scout-arch",  "name": "scout-arch" }
+  ],
+  "agents": [
+    { "path": "agents/scout-docs.md",  "name": "scout-docs" },
+    { "path": "agents/scout-stack.md", "name": "scout-stack" },
+    { "path": "agents/scout-arch.md",  "name": "scout-arch" }
+  ],
+  "scripts": [
+    { "path": "scripts/clone_repo.mjs", "description": "Clone a GitHub URL to a temp directory for analysis" }
+  ]
+}
