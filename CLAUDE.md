@@ -26,10 +26,16 @@ claude-scout/
       SKILL.md                  # Tech stack detection sub-skill
     scout-arch/
       SKILL.md                  # Architecture and structure sub-skill
+    scout-doc/
+      SKILL.md                  # Migration documentation generator
   agents/
-    scout-docs.md               # Reads README, docs, CHANGELOG
-    scout-stack.md              # Detects languages, frameworks, dependencies
-    scout-arch.md               # Maps directory structure and patterns
+    scout-docs.md               # Reads README/docs → 01-overview.md
+    scout-stack.md              # Detects languages, frameworks → 02-tech-stack.md
+    scout-arch.md               # Maps structure, patterns → 03-architecture.md
+    scout-doc-components.md     # Component inventory → 04-components.md
+    scout-doc-routes.md         # Route map → 05-routes.md
+    scout-doc-state.md          # State management → 06-state.md
+    scout-doc-api.md            # API layer → 07-api-layer.md
   scripts/
     clone_repo.mjs              # Clones GitHub URLs to a temp directory (Node.js ESM)
     detect_monorepo.mjs         # Detects monorepo tool and lists apps/libs (Node.js ESM)
@@ -37,11 +43,12 @@ claude-scout/
 
 ## Commands
 
-| Command                    | Purpose                                               |
-| -------------------------- | ----------------------------------------------------- |
-| `/scout <path\|url>`       | Full repo analysis: what it is + stack + architecture |
-| `/scout stack <path\|url>` | Tech stack only                                       |
-| `/scout arch <path\|url>`  | Directory structure and architecture pattern only     |
+| Command | Purpose |
+|---------|---------|
+| `/scout <path\|url>` | Full repo analysis: what it is + stack + architecture (chat) |
+| `/scout stack <path\|url>` | Tech stack only |
+| `/scout arch <path\|url>` | Directory structure and architecture pattern only |
+| `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` to disk |
 
 ## Roadmap (future sub-skills)
 

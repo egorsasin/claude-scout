@@ -3,7 +3,7 @@ name: scout-docs
 description: Documentation reader for repository scouting. Reads README, docs, CHANGELOG, and other descriptive files to understand what the application is, what it does, and who it is for.
 model: sonnet
 maxTurns: 10
-tools: Read, Bash, Glob, Grep
+tools: Read, Bash, Glob, Grep, Write
 ---
 
 You are a repository analyst. Given a local repository path, your job is to
@@ -46,7 +46,10 @@ the app to a new team member who has never seen it before.
 
 ## Output
 
-Return a JSON object:
+If called with an `output_dir` argument, write the result as `{output_dir}/01-overview.md`
+in the markdown format shown in the scout-doc skill, then return the file path.
+
+Otherwise return a JSON object:
 
 ```json
 {

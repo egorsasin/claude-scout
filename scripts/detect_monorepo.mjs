@@ -77,8 +77,22 @@ function collectWorkspaces(root, tool) {
   const libs = [];
 
   // Known app roots and lib roots per tool/convention
-  const appDirs = ["apps", "application", "frontend", "backend", "services", "examples"];
-  const libDirs = ["packages", "libs", "libraries", "shared", "common", "modules"];
+  const appDirs = [
+    "apps",
+    "application",
+    "frontend",
+    "backend",
+    "services",
+    "examples",
+  ];
+  const libDirs = [
+    "packages",
+    "libs",
+    "libraries",
+    "shared",
+    "common",
+    "modules",
+  ];
 
   function addEntries(parentDir, type) {
     const target = type === "app" ? apps : libs;
@@ -93,6 +107,7 @@ function collectWorkspaces(root, tool) {
         existsSync(join(fullPath, "lib")) ||
         existsSync(join(fullPath, "index.ts")) ||
         existsSync(join(fullPath, "index.js"));
+
       if (isPackage) {
         const pkg = readJson(join(fullPath, "package.json"));
         target.push({
@@ -147,7 +162,13 @@ function detect(repoPath) {
 
 const arg = process.argv[2];
 if (!arg) {
-  console.log(JSON.stringify(err("Usage: node detect_monorepo.mjs <local-path>"), null, 2));
+  console.log(
+    JSON.stringify(
+      err("Usage: node detect_monorepo.mjs <local-path>"),
+      null,
+      2,
+    ),
+  );
   process.exit(1);
 }
 

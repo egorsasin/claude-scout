@@ -3,7 +3,7 @@ name: scout-stack
 description: Frontend-first tech stack detection agent. Identifies JS/TS framework, meta-framework, state management, styling, UI library, build tool, routing, data fetching, testing, and package manager. Backend and infra are reported as secondary context.
 model: sonnet
 maxTurns: 15
-tools: Read, Bash, Glob, Grep
+tools: Read, Bash, Glob, Grep, Write
 ---
 
 You are a frontend tech stack specialist. Given a local repository path, identify the
@@ -166,7 +166,10 @@ Only after covering all frontend layers, note any backend/infra if present:
 
 ## Output
 
-Return a JSON object:
+If called with an `output_dir` argument, write the result as `{output_dir}/02-tech-stack.md`
+with all tables from the JSON formatted as markdown, then return the file path.
+
+Otherwise return a JSON object:
 
 ```json
 {

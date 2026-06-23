@@ -29,6 +29,7 @@ No `npm install` needed — scripts use only Node.js built-ins.
 /scout <path|github-url>         Full analysis: what it is + stack + architecture
 /scout stack <path|github-url>   Tech stack only
 /scout arch <path|github-url>    Architecture and structure only
+/scout doc <path|github-url>     Generate full migration documentation → scout-context/
 ```
 
 ### Examples
@@ -37,7 +38,25 @@ No `npm install` needed — scripts use only Node.js built-ins.
 /scout ./my-app
 /scout https://github.com/vercel/next.js
 /scout stack https://github.com/vuejs/vue
-/scout arch ~/projects/dashboard
+/scout doc ~/projects/dashboard
+```
+
+### `/scout doc` output
+
+Running `/scout doc` writes a `scout-context/` directory in your current folder:
+
+```
+scout-context/
+  MIGRATION-CONTEXT.md      ← master document with summary and index
+  01-overview.md            ← what the app is and who it's for
+  02-tech-stack.md          ← full tech stack with versions
+  03-architecture.md        ← component pattern, rendering, state topology
+  04-components.md          ← every component: props, state, dependencies
+  05-routes.md              ← full route map with guards and data loading
+  06-state.md               ← stores, state shape, actions, consumers
+  07-api-layer.md           ← all API calls, endpoints, request/response types
+  08-dependencies.md        ← package audit with outdated/risk flags
+  09-migration-signals.md   ← prioritized checklist of what needs to change
 ```
 
 ---
