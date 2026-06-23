@@ -7,7 +7,7 @@ set -euo pipefail
 main() {
     SKILL_DIR="${HOME}/.claude/skills/scout"
     AGENT_DIR="${HOME}/.claude/agents"
-    REPO_URL="https://github.com/esasin/claude-scout"
+    REPO_URL="https://github.com/egorsasin/claude-scout"
     REPO_TAG="${CLAUDE_SCOUT_TAG:-v1.0.0}"
 
     echo "════════════════════════════════════════"

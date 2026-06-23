@@ -16,7 +16,7 @@ A Claude Code skill that analyzes any git repository and explains what the appli
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/esasin/claude-scout/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/egorsasin/claude-scout/main/install.sh | bash
 ```
 
 No `npm install` needed — scripts use only Node.js built-ins.

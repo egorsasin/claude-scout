@@ -5,7 +5,7 @@ user-invocable: true
 argument-hint: "[path|url]"
 license: MIT
 metadata:
-  author: esasin
+  author: egorsasin
   version: "1.0.0"
   category: migration
 ---

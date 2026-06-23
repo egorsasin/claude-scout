@@ -2,7 +2,7 @@
   "name": "claude-scout",
   "version": "1.0.0",
   "description": "AI-assisted migration intelligence. Scouts any git repo (local or GitHub URL) to explain what the app is, its tech stack, and architecture. First step in an AI migration workflow.",
-  "author": "esasin",
+  "author": "egorsasin",
   "license": "MIT",
   "skills": [
     { "path": "skills/scout",       "name": "scout" },
