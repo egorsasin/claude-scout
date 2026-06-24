@@ -23,14 +23,27 @@ No `npm install` needed — scripts use only Node.js built-ins.
 
 ---
 
-## Usage
+## Quick start
 
+```bash
+# Start Claude Code
+claude
+
+# Full repo analysis
+/scout https://github.com/user/project
+
+# Generate full migration documentation (context)
+/scout doc https://github.com/user/project
 ```
-/scout <path|github-url>         Full analysis: what it is + stack + architecture
-/scout stack <path|github-url>   Tech stack only
-/scout arch <path|github-url>    Architecture and structure only
-/scout doc <path|github-url>     Generate full migration documentation → scout-context/
-```
+
+## Commands
+
+| Command                           | Description                                            |
+| --------------------------------- | ------------------------------------------------------ |
+| `/scout <path\|github-url>`       | Full analysis: what it is + stack + architecture       |
+| `/scout stack <path\|github-url>` | Tech stack only                                        |
+| `/scout arch <path\|github-url>`  | Architecture and structure only                        |
+| `/scout doc <path\|github-url>`   | Generate full migration documentation → scout-context/ |
 
 ### Examples
 
