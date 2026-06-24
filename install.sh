@@ -8,7 +8,9 @@ main() {
     SKILL_DIR="${HOME}/.claude/skills/scout"
     AGENT_DIR="${HOME}/.claude/agents"
     REPO_URL="https://github.com/egorsasin/claude-scout"
-    REPO_TAG="${CLAUDE_SCOUT_TAG:-v1.0.0}"
+    # TODO: switch default to a tagged release (e.g. v1.0.0) once tags are published.
+    # For now we install from a branch. Override with CLAUDE_SCOUT_REF=<tag|branch>.
+    REPO_REF="${CLAUDE_SCOUT_REF:-main}"
 
     echo "════════════════════════════════════════"
     echo "║   Claude Scout - Installer           ║"
@@ -47,8 +49,12 @@ main() {
     trap "rm -rf ${TEMP_DIR}" EXIT
 
     echo ""
-    echo "↓ Downloading Claude Scout (${REPO_TAG})..."
-    git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/claude-scout" 2>/dev/null
+    echo "↓ Downloading Claude Scout (${REPO_REF})..."
+    if ! git clone --depth 1 --branch "${REPO_REF}" "${REPO_URL}" "${TEMP_DIR}/claude-scout" 2>&1; then
+        echo "✗ Failed to download Claude Scout (ref: ${REPO_REF})."
+        echo "  Check the ref exists: git ls-remote ${REPO_URL} ${REPO_REF}"
+        exit 1
+    fi
 
     # Copy all skills
     echo "→ Installing skills..."
