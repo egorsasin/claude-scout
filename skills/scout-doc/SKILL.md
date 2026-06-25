@@ -42,7 +42,11 @@ scout-context/
   01-overview.md
   02-tech-stack.md
   03-architecture.md
-  04-components.md
+  04-components/            ← directory, one spec file per component
+    _index.md               ← inventory table + migration priority
+    widgets/                ← Widget specs (own state or call APIs)
+    components/             ← Component cards (leaf with behavior)
+    ui-primitives.md        ← all simple/presentational components
   05-routes.md
   06-state.md
   07-api-layer.md
@@ -60,7 +64,7 @@ Spawn all simultaneously:
 | `scout-docs` | `01-overview.md` | What the app is, purpose, audience |
 | `scout-stack` | `02-tech-stack.md` | Full frontend stack with versions |
 | `scout-arch` | `03-architecture.md` | Component pattern, rendering, state topology |
-| `scout-doc-components` | `04-components.md` | Component inventory |
+| `scout-doc-components` | `04-components/` | Component specs (widgets, cards, primitives) |
 | `scout-doc-routes` | `05-routes.md` | Route map |
 | `scout-doc-state` | `06-state.md` | State management documentation |
 | `scout-doc-api` | `07-api-layer.md` | API calls and data models |
@@ -110,7 +114,7 @@ Write the master document that ties everything together. Structure:
 - [Overview](01-overview.md)
 - [Tech Stack](02-tech-stack.md)
 - [Architecture](03-architecture.md)
-- [Component Inventory](04-components.md) — X components across Y features
+- [Component Inventory](04-components/_index.md) — W widgets · C components · P primitives
 - [Route Map](05-routes.md) — X routes
 - [State Management](06-state.md)
 - [API Layer](07-api-layer.md) — X endpoints
@@ -137,5 +141,5 @@ Print:
 |----------|--------|
 | Agent fails to write a file | Note the failure in MIGRATION-CONTEXT.md, continue with other files |
 | `scout-context/` already exists | Ask user: overwrite or create `scout-context-2/`? |
-| Repo has no components directory | `04-components.md` notes "No component directory found" |
+| Repo has no components directory | `04-components/_index.md` notes "No component directory found" |
 | No API calls detected | `07-api-layer.md` notes "No API calls detected — app may be static or use server components" |

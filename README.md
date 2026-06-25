@@ -60,16 +60,20 @@ Running `/scout doc` writes a `scout-context/` directory in your current folder:
 
 ```
 scout-context/
-  MIGRATION-CONTEXT.md      ← master document with summary and index
-  01-overview.md            ← what the app is and who it's for
-  02-tech-stack.md          ← full tech stack with versions
-  03-architecture.md        ← component pattern, rendering, state topology
-  04-components.md          ← every component: props, state, dependencies
-  05-routes.md              ← full route map with guards and data loading
-  06-state.md               ← stores, state shape, actions, consumers
-  07-api-layer.md           ← all API calls, endpoints, request/response types
-  08-dependencies.md        ← package audit with outdated/risk flags
-  09-migration-signals.md   ← prioritized checklist of what needs to change
+  MIGRATION-CONTEXT.md        ← master document with summary and index
+  01-overview.md              ← what the app is and who it's for
+  02-tech-stack.md            ← full tech stack with versions
+  03-architecture.md          ← component pattern, rendering, state topology
+  04-components/              ← one spec file per component
+    _index.md                 ← inventory: widgets · component cards · primitives
+    widgets/                  ← Widget specs (own state + call APIs)
+    components/               ← Component cards (leaf with behavior/variants)
+    ui-primitives.md          ← all simple presentational components
+  05-routes.md                ← full route map with guards and data loading
+  06-state.md                 ← stores, state shape, actions, consumers
+  07-api-layer.md             ← all API calls, endpoints, request/response types
+  08-dependencies.md          ← package audit with outdated/risk flags
+  09-migration-signals.md     ← prioritized checklist of what needs to change
 ```
 
 ---
