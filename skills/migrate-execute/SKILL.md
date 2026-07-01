@@ -78,10 +78,11 @@ on first run if it does not exist.
 
 ### On `/migrate execute` (show current phase)
 
-1. Read `plan.md` — extract all phases and their tasks
-2. Read `progress.md` — get completed tasks and current phase
-3. Find the current phase (first phase that is not `done`)
-4. Display:
+1. Resolve `target_dir` (see Target directory section)
+2. Read `plan.md` — extract all phases and their tasks
+3. Read `progress.md` — get completed tasks and current phase
+4. Find the current phase (first phase that is not `done`)
+5. Display:
 
 ```
 ## Phase {N} — {Title}
@@ -101,6 +102,22 @@ Progress: 2/5 tasks done
 When a task is complete: /migrate execute done
 When the whole phase is done: /migrate execute phase done
 ```
+
+### On `/migrate execute` — implementing a task
+
+After displaying the phase status, ask the user:
+> "Implement the current task now? (yes / skip)"
+
+If **yes**: spawn agent `migrate-task` with:
+- `task` — full text of the current open task (including Done when criterion)
+- `target_dir` — from `progress.md`
+- `spec_path` — if the task references a spec file in `.scout/context/`, extract and pass that path
+- `phase_context` — the full phase section from `plan.md` for additional context
+
+When the agent returns: show its report. Then ask:
+> "Mark this task as done? (yes / no)"
+
+If yes → same flow as `/migrate execute done`.
 
 ### On `/migrate execute done`
 
