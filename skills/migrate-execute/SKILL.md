@@ -113,6 +113,7 @@ agent `migrate-task` with:
 - `task` — full text of the current open task (including Done when criterion)
 - `target_dir` — from `progress.md`
 - `spec_path` — extracted path(s), or empty string if none found
+- `compat_path` — `.scout/migration/compat.md` (always pass; agent reads package versions from it)
 - `phase_context` — the full phase section from `plan.md` for additional context
 
 When the agent returns: show its report. Then ask:

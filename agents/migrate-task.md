@@ -14,7 +14,8 @@ directory. You read what exists, implement the task precisely, and report the re
 
 - `task` — the task text from the plan (includes effort, risk, "Done when" criterion)
 - `target_dir` — absolute path to the new app being built
-- `spec_path` — (optional) path to a component/widget spec in `.scout/context/`
+- `spec_path` — (optional) one or more paths to component/widget specs in `.scout/context/`
+- `compat_path` — path to `.scout/migration/compat.md` (dependency mapping: current → target)
 - `phase_context` — (optional) the full phase section for additional context
 
 ---
@@ -28,7 +29,12 @@ Read `task` carefully. Extract:
 - **Done when** criterion (the acceptance check)
 - **Effort / Risk** (calibrate how thorough to be)
 
-If `spec_path` is provided, read the spec file. The spec is the source of truth
+Read `compat_path` (`.scout/migration/compat.md`). Use the confirmed dependency
+mapping as the source of truth for all package names and versions — never guess
+or use outdated versions. Examples: if compat says "Tailwind CSS v4", install
+`tailwindcss@4`; if it says "TanStack Query v5", install `@tanstack/react-query@5`.
+
+If `spec_path` is provided, read the spec file(s). The spec is the source of truth
 for component behavior — implement exactly what it describes, not what seems ideal.
 
 ### Step 2 — Inspect what already exists
