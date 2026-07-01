@@ -18,10 +18,10 @@ confirmation before advancing.
 
 | Command | What it does |
 | --- | --- |
-| `/migrate execute` | Show current phase and its task list with status |
+| `/migrate execute [--target <path>]` | Show current phase and task list. On first run: sets target dir. |
 | `/migrate execute done` | Mark the current open task as done; show next task |
 | `/migrate execute done <task-text>` | Mark a specific task as done by matching text |
-| `/migrate execute phase done` | Mark the entire current phase as done and ask for confirmation to advance |
+| `/migrate execute phase done` | Mark current phase done; confirm before advancing to next |
 | `/migrate execute status` | Show progress summary across all phases |
 
 ## Input files
@@ -46,6 +46,7 @@ on first run if it does not exist.
 
 > Started: {date}
 > Plan: .scout/migration/plan.md
+> Target dir: {absolute path to the new app}
 
 ## Current phase: {N}
 
@@ -146,8 +147,25 @@ Migration progress: Angular 4 → Next.js 15
 
 ---
 
+## Target directory
+
+The target directory is where the new app will be scaffolded and built.
+
+**Resolution order:**
+1. `--target <path>` argument passed to the command
+2. `target_dir` already stored in `progress.md` (set on a previous run)
+3. Neither provided → ask the user:
+   > "Where should the new app be created? (e.g. `../my-new-app` or `/Users/me/projects/app`)"
+   > Wait for the answer.
+
+Once resolved, store `target_dir` in `progress.md` and never ask again.
+If the user passes `--target` and `progress.md` already has a different `target_dir`, confirm before overriding.
+
+---
+
 ## First run (progress.md does not exist)
 
-1. Parse all phases and tasks from `plan.md`
-2. Create `progress.md` with all phases set to `pending`, phase 0 set to `in progress`
-3. Show Phase 0 task list
+1. Resolve `target_dir` (argument → ask)
+2. Parse all phases and tasks from `plan.md`
+3. Create `progress.md` with `target_dir`, all phases set to `pending`, phase 0 `in progress`
+4. Show Phase 0 task list
