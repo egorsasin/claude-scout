@@ -1,6 +1,6 @@
 # Claude Scout
 
-A Claude Code skill that analyzes any git repository and explains what the application is, its tech stack, and its architecture.
+A Claude Code skill that analyzes any git repository and plans its migration — documenting the current state and generating a concrete, phased migration plan to a target stack.
 
 ---
 
@@ -29,28 +29,40 @@ No `npm install` needed — scripts use only Node.js built-ins.
 # Start Claude Code
 claude
 
-# Full repo analysis
+# Quick analysis (chat output only)
 /scout https://github.com/user/project
 
-# Step 1: Generate full migration documentation
+# Full migration workflow:
+
+# Phase 1 — document the current project (no target stack needed)
 /scout doc https://github.com/user/project
 
-# Step 2: Map current dependencies to target equivalents
-/scout compat
-
-# Step 3: Generate migration plan (coming soon)
-/scout plan
+# Phase 2 — plan the migration to a specific stack
+/migrate init "Next.js 15 App Router + Tailwind + Zustand"
+/migrate compat
+/migrate plan
 ```
+
+---
 
 ## Commands
 
-| Command                           | Description                                            |
-| --------------------------------- | ------------------------------------------------------ |
-| `/scout <path\|github-url>`       | Full analysis: what it is + stack + architecture       |
-| `/scout stack <path\|github-url>` | Tech stack only                                        |
-| `/scout arch <path\|github-url>`  | Architecture and structure only                        |
-| `/scout doc <path\|github-url>`   | Generate full migration documentation → scout-context/ |
-| `/scout compat`                   | Map current deps to target equivalents → target-stack.md |
+### Phase 1 — `/scout` (stack-agnostic documentation)
+
+| Command | Description |
+| --- | --- |
+| `/scout <path\|url>` | Full analysis: what it is + stack + architecture |
+| `/scout stack <path\|url>` | Tech stack only |
+| `/scout arch <path\|url>` | Architecture and structure only |
+| `/scout doc <path\|url>` | Generate full migration documentation → `scout-context/` |
+
+### Phase 2 — `/migrate` (target-stack bound)
+
+| Command | Description |
+| --- | --- |
+| `/migrate init <target>` | Set target stack once → `migration/target.md` |
+| `/migrate compat` | Map current deps to target equivalents → `migration/compat.md` |
+| `/migrate plan` | Generate phased migration plan → `migration/plan.md` |
 
 ### Examples
 
@@ -59,11 +71,19 @@ claude
 /scout https://github.com/vercel/next.js
 /scout stack https://github.com/vuejs/vue
 /scout doc ~/projects/dashboard
+
+/migrate init "Nuxt 4 + Pinia + shadcn-vue"
+/migrate compat
+/migrate plan
 ```
 
-### `/scout doc` output
+---
 
-Running `/scout doc` writes a `scout-context/` directory in your current folder:
+## Output
+
+### `/scout doc` → `scout-context/`
+
+Stack-agnostic documentation of the current project. Reusable for any target stack.
 
 ```
 scout-context/
@@ -81,6 +101,17 @@ scout-context/
   07-api-layer.md             ← all API calls, endpoints, request/response types
   08-dependencies.md          ← package audit with outdated/risk flags
   09-migration-signals.md     ← prioritized checklist of what needs to change
+```
+
+### `/migrate` → `migration/`
+
+Target-specific migration artifacts.
+
+```
+migration/
+  target.md                   ← confirmed target stack (set once via /migrate init)
+  compat.md                   ← dependency mapping: current → target
+  plan.md                     ← phased migration plan with tasks and effort estimates
 ```
 
 ---
@@ -112,7 +143,5 @@ This is a turborepo monorepo with 3 apps and 5 libs. What do you want to analyze
 
 ## Roadmap
 
-- `/scout plan` — generate a migration plan
-- `/scout diff` — compare before/after states of a project
-- `/scout risk` — score migration effort and risk
-- `/scout compat` — check dependency compatibility for a target version
+- `/migrate diff` — compare current state to migration plan (progress tracking)
+- `/migrate risk` — score migration effort and risk per phase

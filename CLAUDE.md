@@ -21,15 +21,19 @@ claude-scout/
     plugin.json                 # Plugin manifest
   skills/
     scout/
-      SKILL.md                  # Main orchestrator — routing table
+      SKILL.md                  # Phase 1 orchestrator — routing table
     scout-stack/
       SKILL.md                  # Tech stack detection sub-skill
     scout-arch/
       SKILL.md                  # Architecture and structure sub-skill
     scout-doc/
       SKILL.md                  # Migration documentation generator
-    scout-compat/
-      SKILL.md                  # Dependency mapping: current → target stack
+    migrate/
+      SKILL.md                  # Phase 2 orchestrator — init + routing
+    migrate-compat/
+      SKILL.md                  # Dependency mapping: current → target
+    migrate-plan/
+      SKILL.md                  # Phased migration plan generator
   agents/
     scout-docs.md               # Reads README/docs → 01-overview.md
     scout-stack.md              # Detects languages, frameworks → 02-tech-stack.md
@@ -45,27 +49,52 @@ claude-scout/
 
 ## Commands
 
+## Commands
+
+### Phase 1 — Documentation (stack-agnostic)
+
 | Command | Purpose |
 |---------|---------|
 | `/scout <path\|url>` | Full repo analysis: what it is + stack + architecture (chat) |
 | `/scout stack <path\|url>` | Tech stack only |
 | `/scout arch <path\|url>` | Directory structure and architecture pattern only |
-| `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` to disk |
-| `/scout compat` | Map current dependencies to target equivalents → writes `scout-context/target-stack.md` |
+| `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` |
+
+### Phase 2 — Migration (target-stack bound)
+
+| Command | Purpose |
+|---------|---------|
+| `/migrate init <target>` | Set target stack once → writes `migration/target.md` |
+| `/migrate compat` | Map current deps to target equivalents → writes `migration/compat.md` |
+| `/migrate plan` | Generate phased migration plan → writes `migration/plan.md` |
+| `/migrate diff` | Compare progress to plan *(roadmap)* |
+| `/migrate risk` | Score migration effort and risks *(roadmap)* |
 
 ## Migration workflow
 
 ```
-/scout doc <url>    →   /scout compat   →   /scout plan (coming soon)
-   documents               maps deps             builds phased plan
-   current state           current → target      from target-stack.md
+Phase 1 (stack-agnostic)           Phase 2 (target-stack bound)
+─────────────────────────          ─────────────────────────────────────────
+/scout doc <url>              →    /migrate init <target>
+  scout-context/                     migration/target.md
+  01-overview.md                         ↓
+  02-tech-stack.md                   /migrate compat
+  03-architecture.md                   migration/compat.md
+  04-components/                         ↓
+  05-routes.md                       /migrate plan
+  06-state.md                          migration/plan.md
+  07-api-layer.md
+  08-dependencies.md
+  09-migration-signals.md
 ```
 
-## Roadmap (future sub-skills)
+`scout-context/` is reusable across multiple target stacks.
+`migration/` is target-specific — one directory per migration target.
 
-- `/scout plan` — generate phased migration plan from `scout-context/target-stack.md`
-- `/scout diff <before> <after>` — compare two states of a frontend project
-- `/scout risk` — score migration risks and estimate effort
+## Roadmap
+
+- `/migrate diff` — compare current state to migration plan (progress tracking)
+- `/migrate risk` — score migration effort and risk per phase
 
 ## Development Rules
 
