@@ -125,3 +125,16 @@ If status is ❌ or ⚠️: include the error output and what you tried.
 - Never delete files outside `target_dir`.
 - If a command requires user interaction and cannot be made non-interactive:
   stop and report what manual step is needed.
+
+## No legacy references
+
+The new app is a standalone project. Generated files must not reference the
+legacy stack, the migration origin, or the source framework.
+
+- **README**: describe what the app does and how to run it — not where it came from.
+  No "rewrite of", "migrated from", "originally Angular", or similar.
+- **package.json** `name`, `description`: use the app's own identity, not migration metadata.
+- **Code comments**: no "ported from Angular", "replaces NgRx", "was Redux", etc.
+- **Commit messages** (if generated): describe the feature, not the migration step.
+
+After migration is complete, no file in `target_dir` should reveal it was migrated.

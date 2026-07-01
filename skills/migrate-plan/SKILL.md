@@ -169,6 +169,26 @@ Pulled from `04-components/_index.md`:
 
 ---
 
+## Scope rules
+
+**In scope — include:**
+- Application code (components, routes, state, API layer, utilities)
+- Framework-native best practices for the target stack
+- Testing (unit, integration, E2E)
+- Developer tooling directly tied to the codebase (ESLint, Prettier, TypeScript config, path aliases)
+- CI only for: build, lint, type-check, tests — i.e. code quality gates
+
+**Out of scope — never include:**
+- Hosting, deployment, or infrastructure (Vercel, AWS, Docker, CDN, DNS)
+- DevOps, release pipelines, environment management
+- Monitoring, logging infrastructure, analytics setup
+- "Decide hosting target" — not a migration task
+- Any task that would be identical regardless of what app is being migrated
+
+If a task looks like DevOps or hosting, drop it entirely.
+
+---
+
 ## Planning rules
 
 **Independently deployable phases**: each phase ends with a working app.
