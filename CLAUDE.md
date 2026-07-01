@@ -67,6 +67,7 @@ claude-scout/
 | `/migrate init <target>` | Set target stack once → writes `.scout/migration/target.md` |
 | `/migrate compat` | Map current deps to target equivalents → writes `.scout/migration/compat.md` |
 | `/migrate plan` | Generate phased migration plan → writes `.scout/migration/plan.md` |
+| `/migrate execute` | Execute plan phase by phase → tracks progress in `.scout/migration/progress.md` |
 | `/migrate diff` | Compare progress to plan *(roadmap)* |
 | `/migrate risk` | Score migration effort and risks *(roadmap)* |
 
@@ -83,9 +84,9 @@ Phase 1 (stack-agnostic)           Phase 2 (target-stack bound)
   04-components/                         ↓
   05-routes.md                       /migrate plan
   06-state.md                          .scout/migration/plan.md
-  07-api-layer.md
-  08-dependencies.md
-  09-migration-signals.md
+  07-api-layer.md                          ↓
+  08-dependencies.md                   /migrate execute
+  09-migration-signals.md                .scout/migration/progress.md
 ```
 
 `.scout/context/` is reusable across multiple target stacks.

@@ -63,6 +63,7 @@ claude
 | `/migrate init <target>` | Set target stack once → `.scout/migration/target.md`                  |
 | `/migrate compat`        | Map current deps to target equivalents → `.scout/migration/compat.md` |
 | `/migrate plan`          | Generate phased migration plan → `.scout/migration/plan.md`           |
+| `/migrate execute`       | Execute plan phase by phase → `.scout/migration/progress.md`          |
 
 ### Examples
 

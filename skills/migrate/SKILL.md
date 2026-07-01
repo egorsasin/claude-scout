@@ -28,6 +28,8 @@ and a confirmed target stack from `.scout/migration/target.md`.
        ↓
 /migrate plan            Generate phased migration plan → .scout/migration/plan.md
        ↓
+/migrate execute         Execute plan phase by phase → .scout/migration/progress.md
+       ↓
 /migrate diff            (coming soon) Compare progress to plan
 /migrate risk            (coming soon) Effort and risk scoring
 ```
