@@ -108,10 +108,11 @@ When the whole phase is done: /migrate execute phase done
 After displaying the phase status, ask the user:
 > "Implement the current task now? (yes / skip)"
 
-If **yes**: spawn agent `migrate-task` with:
+If **yes**: extract `spec_path` (see **Spec path extraction** below), then spawn
+agent `migrate-task` with:
 - `task` — full text of the current open task (including Done when criterion)
 - `target_dir` — from `progress.md`
-- `spec_path` — if the task references a spec file in `.scout/context/`, extract and pass that path
+- `spec_path` — extracted path(s), or empty string if none found
 - `phase_context` — the full phase section from `plan.md` for additional context
 
 When the agent returns: show its report. Then ask:
@@ -177,6 +178,36 @@ The target directory is where the new app will be scaffolded and built.
 
 Once resolved, store `target_dir` in `progress.md` and never ask again.
 If the user passes `--target` and `progress.md` already has a different `target_dir`, confirm before overriding.
+
+---
+
+## Spec path extraction
+
+Task text in `plan.md` may contain one or more references to spec files.
+Extract them before spawning `migrate-task`.
+
+**Patterns to scan for** (in order of priority):
+
+| Pattern | Example in task text |
+| --- | --- |
+| `Spec: <path>` | `Spec: .scout/context/04-components/widgets/FindBookPageComponent.md` |
+| `Spec: <path1>, <path2>` | `Spec: .scout/context/04-components/widgets/ViewBookPageComponent.md`, `04-components/widgets/SelectedBookPageComponent.md` |
+| `Ref: <path>` | `Ref: .scout/context/07-api-layer.md "Book Data Model"` |
+
+**Extraction rules:**
+
+1. Scan the full task text for `Spec:` or `Ref:` markers.
+2. Collect all paths that follow (comma-separated if multiple).
+3. Normalise: if a path starts with `.scout/` use as-is; if it starts with
+   `04-components/` (no leading `.scout/context/`), prepend `.scout/context/`.
+4. Verify each path exists with `Read`. If it does not exist, log a warning in
+   the agent call but do not stop.
+5. Pass as a newline-separated string if multiple:
+   ```
+   .scout/context/04-components/widgets/ViewBookPageComponent.md
+   .scout/context/04-components/widgets/SelectedBookPageComponent.md
+   ```
+6. If no `Spec:` or `Ref:` found → pass `spec_path` as empty string.
 
 ---
 
