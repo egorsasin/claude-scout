@@ -1,6 +1,6 @@
 ---
 name: migrate-compat
-description: "Dependency mapping for migration Phase 2. Reads scout-context/02-tech-stack.md and migration/target.md, proposes current→target replacement for each dependency category, iterates until user confirms, then writes migration/compat.md. Part of the /migrate workflow — called by /migrate compat."
+description: "Dependency mapping for migration Phase 2. Reads .scout/context/02-tech-stack.md and .scout/migration/target.md, proposes current→target replacement for each dependency category, iterates until user confirms, then writes .scout/migration/compat.md. Part of the /migrate workflow — called by /migrate compat."
 user-invocable: false
 license: MIT
 metadata:
@@ -12,12 +12,12 @@ metadata:
 # Migrate Compat: Dependency Mapping
 
 Reads the current stack and the confirmed migration target, then produces a
-dependency mapping (current → target) saved to `migration/compat.md`.
+dependency mapping (current → target) saved to `.scout/migration/compat.md`.
 
 ## Input
 
-- `scout-context/02-tech-stack.md` — current stack (written by `/scout doc`)
-- `migration/target.md` — target meta-framework and constraints (written by `/migrate init`)
+- `.scout/context/02-tech-stack.md` — current stack (written by `/scout doc`)
+- `.scout/migration/target.md` — target meta-framework and constraints (written by `/migrate init`)
 
 ---
 
@@ -25,14 +25,14 @@ dependency mapping (current → target) saved to `migration/compat.md`.
 
 ### Step 1 — Read inputs
 
-Read `scout-context/02-tech-stack.md` to extract the current stack.
-Read `migration/target.md` to get the target meta-framework, language, and any
+Read `.scout/context/02-tech-stack.md` to extract the current stack.
+Read `.scout/migration/target.md` to get the target meta-framework, language, and any
 additional constraints the user specified at init time.
 
 ### Step 2 — Build the mapping table
 
 For each category below, propose a target based on the confirmed meta-framework
-and what works well with it. Honour any constraints from `migration/target.md`
+and what works well with it. Honour any constraints from `.scout/migration/target.md`
 (e.g. "must use shadcn/ui", "keep Redux") without question.
 
 **Categories to map:**
@@ -40,7 +40,7 @@ and what works well with it. Honour any constraints from `migration/target.md`
 | Category | Map if detected | Guidance |
 | --- | --- | --- |
 | Language | Always | TypeScript is the default target unless user said otherwise |
-| Meta-framework | Always | Already set in migration/target.md |
+| Meta-framework | Always | Already set in .scout/migration/target.md |
 | UI Library | If present | Prefer headless/accessible libs compatible with target |
 | Client state | If present | Prefer minimal — check if server state tool covers most needs first |
 | Server/async state | If present | TanStack Query v5 for React; VueUse + Pinia for Vue; native loaders for Remix/SvelteKit |
@@ -86,7 +86,7 @@ Does this mapping look right? Reply with any changes, or say "confirmed" to save
 
 If user suggests changes: update the row(s), re-show the full table, repeat.
 
-### Step 5 — Write migration/compat.md
+### Step 5 — Write .scout/migration/compat.md
 
 Once confirmed:
 
@@ -94,7 +94,7 @@ Once confirmed:
 # Dependency Mapping
 
 > Confirmed via /migrate compat
-> Source: scout-context/02-tech-stack.md + migration/target.md
+> Source: .scout/context/02-tech-stack.md + .scout/migration/target.md
 
 ## Mapping
 
@@ -116,7 +116,7 @@ Once confirmed:
 ### Step 6 — Done
 
 ```
-✓ Dependency mapping saved to migration/compat.md
+✓ Dependency mapping saved to .scout/migration/compat.md
 
   Next: /migrate plan
 ```

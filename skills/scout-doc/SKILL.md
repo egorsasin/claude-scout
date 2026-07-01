@@ -1,6 +1,6 @@
 ---
 name: scout-doc
-description: "Generate comprehensive migration documentation for a git repository. Writes a scout-context/ directory with detailed markdown files covering overview, tech stack, architecture, component inventory, route map, state management, API layer, dependencies, and migration signals. Use when user says: document this project, generate migration context, create migration docs, scout doc."
+description: "Generate comprehensive migration documentation for a git repository. Writes a .scout/context/ directory with detailed markdown files covering overview, tech stack, architecture, component inventory, route map, state management, API layer, dependencies, and migration signals. Use when user says: document this project, generate migration context, create migration docs, scout doc."
 user-invocable: true
 argument-hint: "[path|url]"
 license: MIT
@@ -14,7 +14,7 @@ metadata:
 
 **Invocation:** `/scout doc <path|url>`
 
-Produces a complete documentation package in `scout-context/` that serves as
+Produces a complete documentation package in `.scout/context/` that serves as
 the context for an AI migration assistant. All output is written to disk as
 structured markdown files.
 
@@ -33,11 +33,11 @@ Set `analysis_path` accordingly.
 
 ### Step 3 — Create output directory
 
-Create `scout-context/` in the **current working directory** (where the user
+Create `.scout/context/` in the **current working directory** (where the user
 ran the command, not inside the analyzed repo).
 
 ```
-scout-context/
+.scout/context/
   MIGRATION-CONTEXT.md      ← synthesized master document (written last)
   01-overview.md
   02-tech-stack.md
@@ -56,7 +56,7 @@ scout-context/
 
 ### Step 4 — Spawn all agents in parallel
 
-Pass `analysis_path` and the absolute path to `scout-context/` to each agent.
+Pass `analysis_path` and the absolute path to `.scout/context/` to each agent.
 Spawn all simultaneously:
 
 | Agent | Output file | Focus |
@@ -129,7 +129,7 @@ Write the master document that ties everything together. Structure:
 
 Print:
 ```
-✓ Migration context written to scout-context/
+✓ Migration context written to .scout/context/
   9 files · ready for migration planning
 
   Start with: MIGRATION-CONTEXT.md
@@ -140,6 +140,6 @@ Print:
 | Scenario | Action |
 |----------|--------|
 | Agent fails to write a file | Note the failure in MIGRATION-CONTEXT.md, continue with other files |
-| `scout-context/` already exists | Ask user: overwrite or create `scout-context-2/`? |
+| `.scout/context/` already exists | Ask user: overwrite or create `scout-context-2/`? |
 | Repo has no components directory | `04-components/_index.md` notes "No component directory found" |
 | No API calls detected | `07-api-layer.md` notes "No API calls detected — app may be static or use server components" |

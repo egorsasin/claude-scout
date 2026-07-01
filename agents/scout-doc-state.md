@@ -1,6 +1,6 @@
 ---
 name: scout-doc-state
-description: State management documentation agent. Maps all global stores, their state shape, actions, and which components consume them. Also documents server state (TanStack Query, SWR) and URL state patterns. Writes 06-state.md to scout-context/.
+description: State management documentation agent. Maps all global stores, their state shape, actions, and which components consume them. Also documents server state (TanStack Query, SWR) and URL state patterns. Writes 06-state.md to .scout/context/.
 model: sonnet
 maxTurns: 20
 tools: Read, Bash, Glob, Grep, Write
@@ -12,7 +12,7 @@ document the complete state architecture and write it to `{output_dir}/06-state.
 ## How to receive arguments
 
 - `repo_path` — the local path to the repository (or scoped monorepo app)
-- `output_dir` — absolute path to the `scout-context/` directory
+- `output_dir` — absolute path to the `.scout/context/` directory
 
 ## Step 1 — Identify state management tools
 

@@ -1,6 +1,6 @@
 ---
 name: migrate
-description: "Phase 2 of the migration workflow. Requires scout-context/ from /scout doc. Target stack is set once via /migrate init and persists across all sub-commands. Sub-commands: init (set target), compat (dependency mapping), plan (migration plan), diff (compare progress), risk (effort scoring). Triggers on: migrate, migration plan, target stack, what to replace, plan the migration."
+description: "Phase 2 of the migration workflow. Requires .scout/context/ from /scout doc. Target stack is set once via /migrate init and persists across all sub-commands. Sub-commands: init (set target), compat (dependency mapping), plan (migration plan), diff (compare progress), risk (effort scoring). Triggers on: migrate, migration plan, target stack, what to replace, plan the migration."
 user-invocable: true
 argument-hint: "<command> [args]"
 license: MIT
@@ -14,19 +14,19 @@ metadata:
 
 **Invocation:** `/migrate <command> [args]`
 
-Phase 2 of the migration workflow. Reads `scout-context/` produced by `/scout doc`
-and a confirmed target stack from `migration/target.md`.
+Phase 2 of the migration workflow. Reads `.scout/context/` produced by `/scout doc`
+and a confirmed target stack from `.scout/migration/target.md`.
 
 ## Migration workflow
 
 ```
 /scout doc <url>         Phase 1 — document current state (stack-agnostic)
        ↓
-/migrate init <target>   Phase 2 — set target stack once → migration/target.md
+/migrate init <target>   Phase 2 — set target stack once → .scout/migration/target.md
        ↓
-/migrate compat          Map current deps to target equivalents → migration/compat.md
+/migrate compat          Map current deps to target equivalents → .scout/migration/compat.md
        ↓
-/migrate plan            Generate phased migration plan → migration/plan.md
+/migrate plan            Generate phased migration plan → .scout/migration/plan.md
        ↓
 /migrate diff            (coming soon) Compare progress to plan
 /migrate risk            (coming soon) Effort and risk scoring
@@ -36,9 +36,9 @@ and a confirmed target stack from `migration/target.md`.
 
 | Command | What it does |
 | --- | --- |
-| `/migrate init <target>` | Set target stack once. Saves `migration/target.md`. |
-| `/migrate compat` | Map dependencies: current → target. Reads `migration/target.md`. Saves `migration/compat.md`. |
-| `/migrate plan` | Generate phased migration plan. Reads both `migration/target.md` and `migration/compat.md`. Saves `migration/plan.md`. |
+| `/migrate init <target>` | Set target stack once. Saves `.scout/migration/target.md`. |
+| `/migrate compat` | Map dependencies: current → target. Reads `.scout/migration/target.md`. Saves `.scout/migration/compat.md`. |
+| `/migrate plan` | Generate phased migration plan. Reads both `.scout/migration/target.md` and `.scout/migration/compat.md`. Saves `.scout/migration/plan.md`. |
 | `/migrate diff` | Compare current state to migration plan. *(coming soon)* |
 | `/migrate risk` | Score migration effort and risk. *(coming soon)* |
 
@@ -57,11 +57,11 @@ Parse the first argument:
 
 Before running any command except `init`:
 
-1. Check `migration/target.md` exists in the current directory.
-   If not: stop with — "`migration/target.md` not found. Run `/migrate init <target>` first."
+1. Check `.scout/migration/target.md` exists in the current directory.
+   If not: stop with — "`.scout/migration/target.md` not found. Run `/migrate init <target>` first."
 
-2. Check `scout-context/02-tech-stack.md` exists.
-   If not: stop with — "`scout-context/` not found. Run `/scout doc <url>` first."
+2. Check `.scout/context/02-tech-stack.md` exists.
+   If not: stop with — "`.scout/context/` not found. Run `/scout doc <url>` first."
 
 ---
 
@@ -91,11 +91,11 @@ Show a one-line summary:
 
 Wait for confirmation. If the user adjusts, update and re-confirm.
 
-### Step 3 — Create migration/ and write target.md
+### Step 3 — Create .scout/migration/ and write target.md
 
-Create `migration/` in the current working directory.
+Create `.scout/migration/` in the current working directory.
 
-Write `migration/target.md`:
+Write `.scout/migration/target.md`:
 
 ```markdown
 # Migration Target
@@ -119,7 +119,7 @@ Leave empty if none.}
 ### Step 4 — Done
 
 ```
-✓ Target saved to migration/target.md
+✓ Target saved to .scout/migration/target.md
 
   Next steps:
   /migrate compat   — map current dependencies to target equivalents

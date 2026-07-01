@@ -38,7 +38,7 @@ claude
 /scout doc https://github.com/user/project
 
 # Phase 2 — plan the migration to a specific stack
-/migrate init "Next.js 15 App Router + Tailwind + Zustand"
+/migrate init "React"
 /migrate compat
 /migrate plan
 ```
@@ -49,20 +49,20 @@ claude
 
 ### Phase 1 — `/scout` (stack-agnostic documentation)
 
-| Command | Description |
-| --- | --- |
-| `/scout <path\|url>` | Full analysis: what it is + stack + architecture |
-| `/scout stack <path\|url>` | Tech stack only |
-| `/scout arch <path\|url>` | Architecture and structure only |
-| `/scout doc <path\|url>` | Generate full migration documentation → `scout-context/` |
+| Command                    | Description                                               |
+| -------------------------- | --------------------------------------------------------- |
+| `/scout <path\|url>`       | Full analysis: what it is + stack + architecture          |
+| `/scout stack <path\|url>` | Tech stack only                                           |
+| `/scout arch <path\|url>`  | Architecture and structure only                           |
+| `/scout doc <path\|url>`   | Generate full migration documentation → `.scout/context/` |
 
 ### Phase 2 — `/migrate` (target-stack bound)
 
-| Command | Description |
-| --- | --- |
-| `/migrate init <target>` | Set target stack once → `migration/target.md` |
-| `/migrate compat` | Map current deps to target equivalents → `migration/compat.md` |
-| `/migrate plan` | Generate phased migration plan → `migration/plan.md` |
+| Command                  | Description                                                           |
+| ------------------------ | --------------------------------------------------------------------- |
+| `/migrate init <target>` | Set target stack once → `.scout/migration/target.md`                  |
+| `/migrate compat`        | Map current deps to target equivalents → `.scout/migration/compat.md` |
+| `/migrate plan`          | Generate phased migration plan → `.scout/migration/plan.md`           |
 
 ### Examples
 
@@ -81,12 +81,12 @@ claude
 
 ## Output
 
-### `/scout doc` → `scout-context/`
+### `/scout doc` → `.scout/context/`
 
 Stack-agnostic documentation of the current project. Reusable for any target stack.
 
 ```
-scout-context/
+.scout/context/
   MIGRATION-CONTEXT.md        ← master document with summary and index
   01-overview.md              ← what the app is and who it's for
   02-tech-stack.md            ← full tech stack with versions
@@ -103,12 +103,12 @@ scout-context/
   09-migration-signals.md     ← prioritized checklist of what needs to change
 ```
 
-### `/migrate` → `migration/`
+### `/migrate` → `.scout/migration/`
 
 Target-specific migration artifacts.
 
 ```
-migration/
+.scout/migration/
   target.md                   ← confirmed target stack (set once via /migrate init)
   compat.md                   ← dependency mapping: current → target
   plan.md                     ← phased migration plan with tasks and effort estimates

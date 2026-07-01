@@ -1,6 +1,6 @@
 ---
 name: scout-doc-api
-description: API layer documentation agent. Finds all HTTP calls, tRPC procedures, GraphQL queries, and server actions in the frontend codebase. Documents endpoints, request/response shapes, and data flow. Writes 07-api-layer.md to scout-context/.
+description: API layer documentation agent. Finds all HTTP calls, tRPC procedures, GraphQL queries, and server actions in the frontend codebase. Documents endpoints, request/response shapes, and data flow. Writes 07-api-layer.md to .scout/context/.
 model: sonnet
 maxTurns: 20
 tools: Read, Bash, Glob, Grep, Write
@@ -12,7 +12,7 @@ document all external data interactions and write to `{output_dir}/07-api-layer.
 ## How to receive arguments
 
 - `repo_path` — the local path to the repository (or scoped monorepo app)
-- `output_dir` — absolute path to the `scout-context/` directory
+- `output_dir` — absolute path to the `.scout/context/` directory
 
 ## Step 1 — Identify API communication style
 

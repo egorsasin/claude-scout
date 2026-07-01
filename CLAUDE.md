@@ -58,15 +58,15 @@ claude-scout/
 | `/scout <path\|url>` | Full repo analysis: what it is + stack + architecture (chat) |
 | `/scout stack <path\|url>` | Tech stack only |
 | `/scout arch <path\|url>` | Directory structure and architecture pattern only |
-| `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` |
+| `/scout doc <path\|url>` | Generate full migration documentation → writes `.scout/context/` |
 
 ### Phase 2 — Migration (target-stack bound)
 
 | Command | Purpose |
 |---------|---------|
-| `/migrate init <target>` | Set target stack once → writes `migration/target.md` |
-| `/migrate compat` | Map current deps to target equivalents → writes `migration/compat.md` |
-| `/migrate plan` | Generate phased migration plan → writes `migration/plan.md` |
+| `/migrate init <target>` | Set target stack once → writes `.scout/migration/target.md` |
+| `/migrate compat` | Map current deps to target equivalents → writes `.scout/migration/compat.md` |
+| `/migrate plan` | Generate phased migration plan → writes `.scout/migration/plan.md` |
 | `/migrate diff` | Compare progress to plan *(roadmap)* |
 | `/migrate risk` | Score migration effort and risks *(roadmap)* |
 
@@ -76,20 +76,20 @@ claude-scout/
 Phase 1 (stack-agnostic)           Phase 2 (target-stack bound)
 ─────────────────────────          ─────────────────────────────────────────
 /scout doc <url>              →    /migrate init <target>
-  scout-context/                     migration/target.md
+  .scout/context/                     .scout/migration/target.md
   01-overview.md                         ↓
   02-tech-stack.md                   /migrate compat
-  03-architecture.md                   migration/compat.md
+  03-architecture.md                   .scout/migration/compat.md
   04-components/                         ↓
   05-routes.md                       /migrate plan
-  06-state.md                          migration/plan.md
+  06-state.md                          .scout/migration/plan.md
   07-api-layer.md
   08-dependencies.md
   09-migration-signals.md
 ```
 
-`scout-context/` is reusable across multiple target stacks.
-`migration/` is target-specific — one directory per migration target.
+`.scout/context/` is reusable across multiple target stacks.
+`.scout/migration/` is target-specific — one directory per migration target.
 
 ## Roadmap
 

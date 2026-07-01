@@ -18,7 +18,7 @@ description of the legacy behavior.
 ## How to receive arguments
 
 - `repo_path` — the local path to the repository (or scoped monorepo app)
-- `output_dir` — absolute path to the `scout-context/` directory
+- `output_dir` — absolute path to the `.scout/context/` directory
 
 ---
 

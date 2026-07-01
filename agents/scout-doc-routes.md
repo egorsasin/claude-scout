@@ -1,6 +1,6 @@
 ---
 name: scout-doc-routes
-description: Route map agent for migration documentation. Discovers all application routes (file-based or config-based), documents what each renders, guards, layouts, and data loading strategy, then writes 05-routes.md to scout-context/.
+description: Route map agent for migration documentation. Discovers all application routes (file-based or config-based), documents what each renders, guards, layouts, and data loading strategy, then writes 05-routes.md to .scout/context/.
 model: sonnet
 maxTurns: 20
 tools: Read, Bash, Glob, Grep, Write
@@ -12,7 +12,7 @@ produce a complete route map and write it to `{output_dir}/05-routes.md`.
 ## How to receive arguments
 
 - `repo_path` — the local path to the repository (or scoped monorepo app)
-- `output_dir` — absolute path to the `scout-context/` directory
+- `output_dir` — absolute path to the `.scout/context/` directory
 
 ## Step 1 — Detect routing approach
 
