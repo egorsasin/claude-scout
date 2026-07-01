@@ -39,6 +39,7 @@ and a confirmed target stack from `.scout/migration/target.md`.
 | `/migrate init <target>` | Set target stack once. Saves `.scout/migration/target.md`. |
 | `/migrate compat` | Map dependencies: current → target. Reads `.scout/migration/target.md`. Saves `.scout/migration/compat.md`. |
 | `/migrate plan` | Generate phased migration plan. Reads both `.scout/migration/target.md` and `.scout/migration/compat.md`. Saves `.scout/migration/plan.md`. |
+| `/migrate execute` | Execute plan phase by phase. Tracks progress in `.scout/migration/progress.md`. |
 | `/migrate diff` | Compare current state to migration plan. *(coming soon)* |
 | `/migrate risk` | Score migration effort and risk. *(coming soon)* |
 
@@ -49,6 +50,7 @@ Parse the first argument:
 - `init` → run **Init** flow below
 - `compat` → load sub-skill `migrate-compat`
 - `plan` → load sub-skill `migrate-plan`
+- `execute` → load sub-skill `migrate-execute`
 - `diff` → respond: "Coming soon. Complete /migrate plan first."
 - `risk` → respond: "Coming soon. Complete /migrate plan first."
 - No argument or unknown → show the workflow diagram and command table above
