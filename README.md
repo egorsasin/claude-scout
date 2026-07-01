@@ -32,8 +32,14 @@ claude
 # Full repo analysis
 /scout https://github.com/user/project
 
-# Generate full migration documentation (context)
+# Step 1: Generate full migration documentation
 /scout doc https://github.com/user/project
+
+# Step 2: Map current dependencies to target equivalents
+/scout compat
+
+# Step 3: Generate migration plan (coming soon)
+/scout plan
 ```
 
 ## Commands
@@ -44,6 +50,7 @@ claude
 | `/scout stack <path\|github-url>` | Tech stack only                                        |
 | `/scout arch <path\|github-url>`  | Architecture and structure only                        |
 | `/scout doc <path\|github-url>`   | Generate full migration documentation → scout-context/ |
+| `/scout compat`                   | Map current deps to target equivalents → target-stack.md |
 
 ### Examples
 

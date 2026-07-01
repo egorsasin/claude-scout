@@ -27,6 +27,7 @@ Backend and infra are noted briefly as secondary context.
 | `/scout stack <path\|url>` | Tech stack only |
 | `/scout arch <path\|url>` | Architecture and structure only |
 | `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` to disk |
+| `/scout compat` | Map current dependencies to target equivalents → writes `scout-context/target-stack.md` |
 
 ## Routing Logic
 
@@ -34,6 +35,7 @@ Parse the first argument:
 - If it's `doc` → load sub-skill `scout-doc`, pass remaining args
 - If it's `stack` → load sub-skill `scout-stack`, pass remaining args
 - If it's `arch` → load sub-skill `scout-arch`, pass remaining args
+- If it's `compat` → load sub-skill `scout-compat`, pass remaining args
 - Otherwise treat the first argument as the path/URL → run full analysis
 
 ## Full Analysis Process

@@ -28,11 +28,13 @@ claude-scout/
       SKILL.md                  # Architecture and structure sub-skill
     scout-doc/
       SKILL.md                  # Migration documentation generator
+    scout-compat/
+      SKILL.md                  # Dependency mapping: current → target stack
   agents/
     scout-docs.md               # Reads README/docs → 01-overview.md
     scout-stack.md              # Detects languages, frameworks → 02-tech-stack.md
     scout-arch.md               # Maps structure, patterns → 03-architecture.md
-    scout-doc-components.md     # Component inventory → 04-components.md
+    scout-doc-components.md     # Component specs → 04-components/
     scout-doc-routes.md         # Route map → 05-routes.md
     scout-doc-state.md          # State management → 06-state.md
     scout-doc-api.md            # API layer → 07-api-layer.md
@@ -49,13 +51,21 @@ claude-scout/
 | `/scout stack <path\|url>` | Tech stack only |
 | `/scout arch <path\|url>` | Directory structure and architecture pattern only |
 | `/scout doc <path\|url>` | Generate full migration documentation → writes `scout-context/` to disk |
+| `/scout compat` | Map current dependencies to target equivalents → writes `scout-context/target-stack.md` |
+
+## Migration workflow
+
+```
+/scout doc <url>    →   /scout compat   →   /scout plan (coming soon)
+   documents               maps deps             builds phased plan
+   current state           current → target      from target-stack.md
+```
 
 ## Roadmap (future sub-skills)
 
-- `/scout plan <path\|url>` — generate frontend migration plan (e.g. Vue 2 → Vue 3, Webpack → Vite, Pages → App Router)
+- `/scout plan` — generate phased migration plan from `scout-context/target-stack.md`
 - `/scout diff <before> <after>` — compare two states of a frontend project
-- `/scout risk <path\|url>` — score migration risks and estimate effort
-- `/scout compat <path\|url>` — check dependency compatibility for a target framework version
+- `/scout risk` — score migration risks and estimate effort
 
 ## Development Rules
 
