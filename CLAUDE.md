@@ -34,6 +34,8 @@ claude-scout/
       SKILL.md                  # Dependency mapping: current → target
     migrate-plan/
       SKILL.md                  # Phased migration plan generator
+    migrate-execute/
+      SKILL.md                  # Phase-by-phase execution with progress tracking
   agents/
     scout-docs.md               # Reads README/docs → 01-overview.md
     scout-stack.md              # Detects languages, frameworks → 02-tech-stack.md
@@ -42,12 +44,11 @@ claude-scout/
     scout-doc-routes.md         # Route map → 05-routes.md
     scout-doc-state.md          # State management → 06-state.md
     scout-doc-api.md            # API layer → 07-api-layer.md
+    migrate-task.md             # Implements a single migration task in target_dir
   scripts/
     clone_repo.mjs              # Clones GitHub URLs to a temp directory (Node.js ESM)
     detect_monorepo.mjs         # Detects monorepo tool and lists apps/libs (Node.js ESM)
 ```
-
-## Commands
 
 ## Commands
 

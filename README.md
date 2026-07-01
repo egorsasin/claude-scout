@@ -113,6 +113,7 @@ Target-specific migration artifacts.
   target.md                   ← confirmed target stack (set once via /migrate init)
   compat.md                   ← dependency mapping: current → target
   plan.md                     ← phased migration plan with tasks and effort estimates
+  progress.md                 ← execution state: current phase, completed tasks, target dir
 ```
 
 ---
