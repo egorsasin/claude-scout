@@ -93,6 +93,21 @@ Create:
 
 ## STEP 4 — Write specs
 
+Before writing each spec, run style discovery for the component:
+
+1. **Co-located style file** — look for `{ComponentName}.module.css`, `.module.scss`,
+   `.module.less`, `{ComponentName}.css`, `{ComponentName}.scss` in the same directory
+2. **Styled-components / Emotion** — grep the source file for template literals
+   (`` const Foo = styled.div` ``)
+3. **CSS imports** — check `import styles from '...'` or `import '...'` at the top of the file
+4. **Tailwind classes** — if Tailwind is used, list every `className` string found in the file
+5. **CSS custom properties** — grep the component and its style files for `var(--` references;
+   then read the global token file (e.g. `tokens.css`, `variables.scss`, `theme.ts`) to get the resolved values
+6. **Animations** — grep the style files for `@keyframes` and `transition:`; record name, duration, easing, and trigger
+7. **Global / inherited** — note if the component relies on global `body`, `.app-root`, or theme-provider styles
+
+Read every style file found. Document the actual values — not "see source file".
+
 ### 4a. Widget Spec (one file per widget)
 
 File: `{output_dir}/04-components/widgets/{WidgetName}.md`
@@ -252,7 +267,34 @@ only looked at the component's interface.}
 
 ---
 
-## 5. Flows
+## 5. Visual spec
+
+### Style source files
+| File | Type | What it controls |
+| --- | --- | --- |
+| `{path/to/Widget.module.scss}` | `{CSS Module / SCSS / styled-component / inline Tailwind}` | `{host layout, loading overlay, focus ring}` |
+| `{path/to/global-tokens.css}` | `{global CSS variables}` | `{--color-primary, --spacing-md}` |
+
+### Design tokens / CSS variables used
+| Token | Value in source | Used for |
+| --- | --- | --- |
+| `{--color-primary}` | `{#2563eb}` | `{focus border, active state}` |
+| `{--radius-md}` | `{6px}` | `{container border-radius}` |
+
+### Animations & transitions
+| Element | Property | Duration | Easing | Trigger | Defined in |
+| --- | --- | --- | --- | --- | --- |
+| `{loading overlay}` | `{opacity}` | `{200ms}` | `{ease}` | `{isLoading toggle}` | `{Widget.module.scss}` |
+| `{error toast}` | `{transform, opacity}` | `{300ms}` | `{ease-out}` | `{error state enter}` | `{@keyframes slideIn in Widget.module.scss}` |
+
+### Global / inherited styles
+{Note any styles this widget inherits from parent layout, global CSS, or theme provider.}
+- {e.g. Typography from `body` → `font-family: Inter, sans-serif; font-size: 16px`}
+- {e.g. Background from `.app-shell` → `--color-surface`}
+
+---
+
+## 6. Flows
 
 ### Flow: {Primary flow name, e.g. "Submit login credentials"}
 
@@ -283,7 +325,7 @@ only looked at the component's interface.}
 
 ---
 
-## 6. Accessibility
+## 7. Accessibility
 
 ### Keyboard interaction
 | Key | Action |
@@ -306,7 +348,7 @@ only looked at the component's interface.}
 
 ---
 
-## 7. Acceptance criteria
+## 8. Acceptance criteria
 
 - [ ] All modes/variants render as documented
 - [ ] Component tree and conditional composition match legacy
@@ -316,10 +358,11 @@ only looked at the component's interface.}
 - [ ] All flows complete with identical outcomes, including all error branches
 - [ ] All edge cases behave as documented
 - [ ] Keyboard and screen-reader behavior matches documented target
+- [ ] Visual appearance matches: layout, spacing, colors, typography, and all animations/transitions
 
 ---
 
-## 8. Known issues / open questions
+## 9. Known issues / open questions
 
 {Bugs and ambiguities found during reverse-engineering.
 1:1 first — fixes are a later phase.}
@@ -406,8 +449,22 @@ Text description of the component's visual parts (no screenshot available — in
 
 ## 2. Style
 
-{Extract from CSS/Tailwind/CSS Modules/styled-components in the source file.
-No Figma available — describe what is in the code.}
+{Read the component's source file AND every CSS/SCSS/module file it imports.
+No Figma available — document exactly what is in the code.}
+
+### Style source files
+| File | Type | What it controls |
+| --- | --- | --- |
+| `{src/components/Input/Input.module.scss}` | `{CSS Module / SCSS / CSS / styled-component / Tailwind classes}` | `{base layout, border, focus ring, error state}` |
+| `{src/styles/tokens.css}` | `{global CSS variables}` | `{--color-primary, --font-size-sm, --radius-md}` |
+
+### Design tokens / CSS variables used
+| Token | Value in source | Used for |
+| --- | --- | --- |
+| `{--color-primary}` | `{#2563eb}` | `{focus border color}` |
+| `{--color-error}` | `{#ef4444}` | `{error border and text}` |
+| `{--radius-md}` | `{6px}` | `{input border-radius}` |
+| `{--font-size-sm}` | `{14px}` | `{label and input text}` |
 
 ### Key visual properties (from code)
 | Element | Property | Value (from source) |
@@ -428,6 +485,12 @@ No Figma available — describe what is in the code.}
 | sm | {`h-8` / `32px`} | {`text-xs`} | {`px-2 py-1`} |
 | md | {`h-10` / `40px`} | {`text-sm`} | {`px-3 py-2`} |
 | lg | {`h-12` / `48px`} | {`text-base`} | {`px-4 py-3`} |
+
+### Animations & transitions
+| Element | Property | Duration | Easing | Trigger | Defined in |
+| --- | --- | --- | --- | --- | --- |
+| `{Input border}` | `{border-color}` | `{150ms}` | `{ease}` | `{focus / blur}` | `{inline transition in Input.module.scss}` |
+| `{Error message}` | `{opacity, transform}` | `{200ms}` | `{ease-out}` | `{error state enter}` | `{@keyframes fadeInDown in Input.module.scss}` |
 
 ### Responsive behavior
 | Breakpoint | Behavior |
@@ -588,7 +651,7 @@ For repos with 100+ components, apply this depth strategy:
 | --- | --- |
 | **Widgets** | Always full spec (all 8 sections) |
 | **Component Cards** (complex, 5+ inputs, 3+ states) | Full spec |
-| **Component Cards** (simple, <5 inputs) | Abbreviated: Usage + Code contract only |
-| **UI Primitives** | One-paragraph entries in `ui-primitives.md` |
+| **Component Cards** (simple, <5 inputs) | Abbreviated: Usage + Style + Code contract only |
+| **UI Primitives** | One-paragraph entries in `ui-primitives.md` — include style source file path and any animations |
 
 Never skip a widget regardless of apparent simplicity.
