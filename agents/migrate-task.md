@@ -71,6 +71,9 @@ Execute the task. Rules:
 - Read the spec — implement every variant, state, and behavior described
 - Write to `target_dir/src/components/` or `target_dir/src/features/` as appropriate
 - Do not add behavior not in the spec
+- After writing the component, import and render it in the route/page file it belongs
+  to (the route was created in the first task of this feature slice). The component
+  must be visible in the browser at that route — not just passing unit tests
 
 **For CI / workflow tasks**:
 - Write `.github/workflows/ci.yml` (or equivalent) to `target_dir`
@@ -79,7 +82,10 @@ Execute the task. Rules:
 ### Step 4 — Verify "Done when"
 
 Check the acceptance criterion from the task:
-- Run the stated command if applicable (`npm run dev`, `tsc --noEmit`, `npm run lint`)
+- Run the stated command if applicable (`tsc --noEmit`, `npm run lint`, test runner)
+- For component tasks: run `npm run dev` and confirm the component is visible at
+  its route in the browser — visual verification is required, unit tests alone
+  are not sufficient
 - Confirm the output matches "Done when"
 - If it fails: fix and retry (up to 3 attempts)
 

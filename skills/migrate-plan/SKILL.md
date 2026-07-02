@@ -53,6 +53,11 @@ Show the proposal and wait for the user to confirm or adjust.
 - **Infrastructure vs feature**: the only data-layer work that belongs in an early
   phase is shared infrastructure — HTTP client factory, Query provider setup, store
   shell, env vars. Specific endpoints and slices belong with their feature.
+- **Route first within every feature slice**: the first task of any feature phase
+  must create the page/route file (even as a placeholder). Every subsequent task in
+  that slice renders into that route — so the developer can open the browser and see
+  progress at each step. "Done when" for any component task must include a visual
+  check: "visible at route X in `npm run dev`", not only unit tests.
 - Omit phases that don't apply. Merge phases that are small or tightly coupled.
 - Add phases for project-specific concerns if detected in `.scout/context/`.
 
