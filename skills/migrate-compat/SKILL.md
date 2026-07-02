@@ -138,7 +138,7 @@ Suggest over styled component libraries unless team is deeply invested or
 design system requires it.
 
 **Routing — check if it becomes redundant:**
-React Router, Vue Router, Angular Router are often replaced by the
+Standalone routing libraries are often replaced by the
 meta-framework's file-system router. Mark as "Dropped — replaced by
 {meta-framework} built-in" rather than mapping to an equivalent.
 

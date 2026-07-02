@@ -57,7 +57,7 @@ Show the proposal and wait for the user to confirm or adjust.
   must create the page/route file (even as a placeholder). Every subsequent task in
   that slice renders into that route — so the developer can open the browser and see
   progress at each step. "Done when" for any component task must include a visual
-  check: "visible at route X in `npm run dev`", not only unit tests.
+  check: "visible at route X with the dev server running", not only unit tests.
 - Omit phases that don't apply. Merge phases that are small or tightly coupled.
 - Add phases for project-specific concerns if detected in `.scout/context/`.
 
@@ -69,12 +69,12 @@ Proposed phase structure for {current} → {target}:
 | # | Phase | Goal | Approach |
 | --- | --- | --- | --- |
 | 0 | Foundation | Scaffold, tooling, CI | — |
-| 1 | Styling & primitives | Tailwind + shadcn/ui + utility fns | — |
-| 2 | Infrastructure | HTTP client, Query provider, store shell, env | Shared foundations only — no feature-specific code |
+| 1 | Styling & primitives | UI library + design tokens + utility fns | — |
+| 2 | Infrastructure | HTTP client, data-fetching provider, store shell, env | Shared foundations only — no feature-specific code |
 | 3 | App shell | Root layout, nav, sidebar | — |
-| 4 | Search feature | /book/find route + components + API + state + tests | Vertical slice |
-| 5 | Book detail feature | /book/:id route + components + API + state + tests | Vertical slice |
-| 6 | Collection feature | / route + components + persistence + state + tests | Vertical slice |
+| 4 | {Feature A} | /{feature-a} route + components + API + state + tests | Vertical slice |
+| 5 | {Feature B} | /{item-type}/:id route + components + API + state + tests | Vertical slice |
+| 6 | {Feature C} | / route + components + persistence + state + tests | Vertical slice |
 | 7 | Cleanup | Remove legacy, dead code, final polish | — |
 
 Does this structure look right?
@@ -141,12 +141,12 @@ After the task list for each phase:
 **Depends on:** Nothing — start here.
 
 **Tasks:**
-- [ ] Initialise Next.js 15 project with TypeScript and App Router
+- [ ] Scaffold {target} project with TypeScript
       Effort: S   Risk: Low
-      Done when: `next dev` starts, TypeScript compiles with 0 errors
+      Done when: dev server starts, TypeScript compiles with 0 errors
 - [ ] Configure ESLint + Prettier matching existing rules
       Effort: S   Risk: Low
-      Done when: `npm run lint` passes on empty project
+      Done when: lint passes on empty project
 - [ ] Set up CI pipeline (build + lint + type-check)
       Effort: M   Risk: Low
       Done when: CI passes on every PR
@@ -155,7 +155,7 @@ After the task list for each phase:
       Done when: `@/components/*` resolves correctly
 
 **Risks:**
-- Next.js 15 + Turbopack may conflict with some PostCSS plugins — test early.
+- Target framework build tooling may conflict with some PostCSS plugins — test early.
 
 ---
 

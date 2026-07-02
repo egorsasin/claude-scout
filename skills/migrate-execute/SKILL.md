@@ -64,12 +64,11 @@ on first run if it does not exist.
 ## Completed tasks
 
 <!-- One line per completed task. Format: Phase N · task short description -->
-- Phase 0 · Scaffold Next.js 15 with npm
+- Phase 0 · Scaffold {target} project
 - Phase 0 · Configure ESLint + Prettier
 - Phase 0 · Set up CI
 - Phase 0 · Configure path alias @/*
-- Phase 0 · Decide hosting target
-- Phase 1 · Install & configure Tailwind CSS v4
+- Phase 1 · Install & configure {UI library}
 ```
 
 ---
@@ -91,7 +90,7 @@ Goal: {goal from plan}
 Depends on: {dependencies}
 
 Tasks:
-  ✅ Scaffold Next.js 15 with npm
+  ✅ Scaffold {target} project
   ✅ Configure ESLint + Prettier
   ⬜ Set up CI (build + lint + type-check)      ← current open task
   ⬜ Configure path alias @/*
@@ -152,7 +151,7 @@ Review: .scout/migration/progress.md
 Show the phase summary table from `progress.md`:
 
 ```
-Migration progress: Angular 4 → Next.js 15
+Migration progress: {source} → {target}
 
 | Phase | Title                        | Status      |
 | ----- | ---------------------------- | ----------- |
@@ -191,9 +190,9 @@ Extract them before spawning `migrate-task`.
 
 | Pattern | Example in task text |
 | --- | --- |
-| `Spec: <path>` | `Spec: .scout/context/04-components/widgets/FindBookPageComponent.md` |
-| `Spec: <path1>, <path2>` | `Spec: .scout/context/04-components/widgets/ViewBookPageComponent.md`, `04-components/widgets/SelectedBookPageComponent.md` |
-| `Ref: <path>` | `Ref: .scout/context/07-api-layer.md "Book Data Model"` |
+| `Spec: <path>` | `Spec: .scout/context/04-components/widgets/ItemDetailWidget.md` |
+| `Spec: <path1>, <path2>` | `Spec: .scout/context/04-components/widgets/ItemListWidget.md`, `04-components/widgets/ItemSearchWidget.md` |
+| `Ref: <path>` | `Ref: .scout/context/07-api-layer.md "Item Data Model"` |
 
 **Extraction rules:**
 
@@ -205,8 +204,8 @@ Extract them before spawning `migrate-task`.
    the agent call but do not stop.
 5. Pass as a newline-separated string if multiple:
    ```
-   .scout/context/04-components/widgets/ViewBookPageComponent.md
-   .scout/context/04-components/widgets/SelectedBookPageComponent.md
+   .scout/context/04-components/widgets/ItemListWidget.md
+   .scout/context/04-components/widgets/ItemSearchWidget.md
    ```
 6. If no `Spec:` or `Ref:` found → pass `spec_path` as empty string.
 

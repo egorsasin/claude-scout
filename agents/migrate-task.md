@@ -83,9 +83,12 @@ Execute the task. Rules:
 
 Check the acceptance criterion from the task:
 - Run the stated command if applicable (`tsc --noEmit`, `npm run lint`, test runner)
-- For component tasks: run `npm run dev` and confirm the component is visible at
-  its route in the browser — visual verification is required, unit tests alone
-  are not sufficient
+- For component tasks: start the dev server and confirm the component is visible
+  at its route — visual verification is required, unit tests alone are not sufficient.
+  Detect the dev command from `target_dir/package.json` scripts (e.g. `dev`, `start`),
+  then run it with the project's package manager (`npm`, `yarn`, `pnpm`, or `bun` —
+  detected from lockfile presence: `package-lock.json` → npm, `yarn.lock` → yarn,
+  `pnpm-lock.yaml` → pnpm, `bun.lockb` → bun)
 - Confirm the output matches "Done when"
 - If it fails: fix and retry (up to 3 attempts)
 
@@ -99,18 +102,18 @@ Return a structured summary:
 Status: ✅ done / ❌ failed / ⚠️ partial
 
 Files created:
-- {target_dir}/src/utils/truncateHtml.ts
-- {target_dir}/src/utils/truncateHtml.test.ts
+- {target_dir}/src/utils/{utilName}.ts
+- {target_dir}/src/utils/{utilName}.test.ts
 
 Files modified:
 - {target_dir}/tsconfig.json
 
 Commands run:
-- npx create-next-app@latest . --typescript --app --src-dir --import-alias "@/*" --yes
+- {scaffold command run}
 
 Verification:
 - `tsc --noEmit` → 0 errors ✅
-- `npm run lint` → passed ✅
+- `{lint command}` → passed ✅
 
 Notes:
 - {any deviation from the spec, or open questions found during implementation}
@@ -138,9 +141,9 @@ The new app is a standalone project. Generated files must not reference the
 legacy stack, the migration origin, or the source framework.
 
 - **README**: describe what the app does and how to run it — not where it came from.
-  No "rewrite of", "migrated from", "originally Angular", or similar.
+  No "rewrite of", "migrated from", "originally {source-framework}", or similar.
 - **package.json** `name`, `description`: use the app's own identity, not migration metadata.
-- **Code comments**: no "ported from Angular", "replaces NgRx", "was Redux", etc.
+- **Code comments**: no "ported from {source-framework}", "replaces {old-library}", etc.
 - **Commit messages** (if generated): describe the feature, not the migration step.
 
 After migration is complete, no file in `target_dir` should reveal it was migrated.
