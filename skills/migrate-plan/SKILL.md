@@ -37,29 +37,52 @@ Read every file listed above. Build a complete picture of:
 - What it changes to (compat mapping)
 - What's highest priority (migration signals severity + component priority)
 
-### Step 2 — Determine phases
+### Step 2 — Propose phase structure and wait for confirmation
 
-Structure the plan into sequential phases. Each phase must be independently
-deployable — the app works at the end of each phase.
+Analyse the app and propose a phase structure. **Do not generate task details yet.**
+Show the proposal and wait for the user to confirm or adjust.
 
-Standard phase order (adapt based on actual signals):
+**Guiding principles for the proposal:**
 
-| # | Phase | Goal |
-| --- | --- | --- |
-| 0 | Foundation | Set up the target framework skeleton, CI, tooling, TypeScript config |
-| 1 | Infrastructure | Replace build tool, package manager, dev environment |
-| 2 | Styling | Migrate styling system (CSS-in-JS → Tailwind, etc.) |
-| 3 | Data layer | Replace API client, state management, server state |
-| 4 | UI primitives | Migrate or replace UI primitive components (buttons, inputs, etc.) |
-| 5 | Feature components | Migrate component cards and widgets feature by feature |
-| 6 | Routes | Migrate route structure to target meta-framework |
-| 7 | Auth | Migrate authentication |
-| 8 | Cleanup | Remove legacy deps, dead code, final optimisations |
+- **Vertical slices over horizontal layers**: do not create a full "Data layer" phase
+  that builds all API clients, state, and hooks before any UI exists. Instead, build
+  infrastructure foundations early, then grow API/state/tests alongside the features
+  that consume them.
+- **No orphaned code**: if an API method, state slice, or hook has no consumer yet,
+  do not plan it. Plan it in the phase where its consumer (component/route) is built.
+- **Infrastructure vs feature**: the only data-layer work that belongs in an early
+  phase is shared infrastructure — HTTP client factory, Query provider setup, store
+  shell, env vars. Specific endpoints and slices belong with their feature.
+- Omit phases that don't apply. Merge phases that are small or tightly coupled.
+- Add phases for project-specific concerns if detected in `.scout/context/`.
 
-Omit or merge phases that don't apply. Add phases for project-specific concerns
-(e.g. "Internationalization", "Analytics migration") if detected in .scout/context/.
+**Present the proposal as:**
+
+```
+Proposed phase structure for {current} → {target}:
+
+| # | Phase | Goal | Approach |
+| --- | --- | --- | --- |
+| 0 | Foundation | Scaffold, tooling, CI | — |
+| 1 | Styling & primitives | Tailwind + shadcn/ui + utility fns | — |
+| 2 | Infrastructure | HTTP client, Query provider, store shell, env | Shared foundations only — no feature-specific code |
+| 3 | App shell | Root layout, nav, sidebar | — |
+| 4 | Search feature | /book/find route + components + API + state + tests | Vertical slice |
+| 5 | Book detail feature | /book/:id route + components + API + state + tests | Vertical slice |
+| 6 | Collection feature | / route + components + persistence + state + tests | Vertical slice |
+| 7 | Cleanup | Remove legacy, dead code, final polish | — |
+
+Does this structure look right?
+You can ask to merge phases, split a phase, reorder, or switch the approach for any phase.
+Reply "confirmed" to generate the full detailed plan.
+```
+
+Wait for the user's response. If they request changes, update the table and re-present.
+Repeat until confirmed.
 
 ### Step 3 — Break each phase into tasks
+
+Only run this step after the phase structure is confirmed.
 
 For each phase, list concrete tasks. Each task must:
 - Be assignable to one developer
